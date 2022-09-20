@@ -62,11 +62,17 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
+    // $date の中が配列（dataの数複数）になっているのでarrayを書く必要
     {
         return User::create([
+            // usermodelはusertableとつながっている
+
+            // migrationの設計でusertableが作られている
+
             'username' => $data['username'],
             'mail' => $data['mail'],
             'password' => bcrypt($data['password']),
+            // bcrypy パスワード暗号化するため使う
         ]);
     }
 
@@ -78,14 +84,17 @@ class RegisterController extends Controller
     public function register(Request $request){
         if($request->isMethod('post')){
             $data = $request->input();
-
+// $requestの中にformFatherdから送った情報が入ってる　その情報をinput で取り出す　取り出した情報は$dataとイコールになっている
             $this->create($data);
+            // $thisこのファイルの中の　create を使う
             return redirect('added');
+            // redirect()の中に書いてあるurlでrooting行う　get通信
         }
         return view('auth.register');
     }
 
     public function added(){
         return view('auth.added');
+        // view()の中に書いているviewファイルを画面に表示する
     }
 }

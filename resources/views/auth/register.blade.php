@@ -2,8 +2,8 @@
 
 @section('content')
 
-{!! Form::open() !!}
-
+{!! Form::open(['url' => '/register']) !!}
+<!-- フォームファサードで書いた場合はpost通信になる -->
 <h2>新規ユーザー登録</h2>
 
 {{ Form::label('ユーザー名') }}
